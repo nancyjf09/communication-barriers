@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barriers to Communication</title>
+<style>
+:root{--pink:#e91e8c;--pink2:#ff6fb5;--pinkbg:#ffe3f1;--blue:#1e6bff;--blue2:#5aa2ff;--bluebg:#dcebff;--ink:#1c1b3a;--bg:#f6f4ff;--card:#fff;--line:#e4def5}
+@media(prefers-color-scheme:dark){:root{--pinkbg:#4a1535;--bluebg:#12294f;--ink:#f1eefc;--bg:#15132b;--card:#1f1c3a;--line:#37315e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+header{background:linear-gradient(120deg,var(--pink),var(--blue));color:#fff;border-radius:22px;padding:28px 24px;margin-bottom:16px}
+h1{margin:0 0 6px;font-size:clamp(1.6rem,5vw,2.3rem)}
+header p{margin:0;opacity:.95}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+nav button{flex:1;min-width:130px;border:2px solid var(--blue);background:var(--card);color:var(--blue);font:inherit;font-weight:700;padding:11px 14px;border-radius:999px;cursor:pointer}
+nav button:nth-child(2){border-color:var(--pink);color:var(--pink)}
+nav button[aria-selected=true]{background:var(--blue);color:#fff}
+nav button:nth-child(2)[aria-selected=true]{background:var(--pink);color:#fff}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+section{display:none}section.on{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{border:0;font:inherit;font-weight:700;color:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;background:var(--blue)}
+.chip:nth-child(even){background:var(--pink)}
+.chip[aria-pressed=true]{box-shadow:0 0 0 3px var(--card),0 0 0 6px currentColor;color:#fff;outline:3px solid var(--ink);outline-offset:3px}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:20px}
+.panel h2{margin:0 0 6px}
+.box{border-radius:14px;padding:14px 16px;margin-top:12px}
+.ex{background:var(--pinkbg);border-left:6px solid var(--pink)}
+.fix{background:var(--bluebg);border-left:6px solid var(--blue)}
+.box b{display:block;margin-bottom:2px}
+.ex b{color:var(--pink)}.fix b{color:var(--blue)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.cols{grid-template-columns:1fr}}
+.col{border-radius:20px;padding:16px;border:2px solid}
+.col.bar{background:var(--pinkbg);border-color:var(--pink)}
+.col.fac{background:var(--bluebg);border-color:var(--blue)}
+.col h2{margin:0 0 4px}
+.bar h2{color:var(--pink)}.fac h2{color:var(--blue)}
+.col>p{margin:0 0 10px;font-size:.92rem}
+.item{display:block;width:100%;text-align:left;font:inherit;background:var(--card);color:var(--ink);border:2px solid transparent;border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.bar .item{border-color:var(--pink2)}.fac .item{border-color:var(--blue2)}
+.item strong{display:block}
+.item .more{display:none;margin-top:6px;font-size:.92rem}
+.item[aria-expanded=true] .more{display:block}
+.bar .item[aria-expanded=true]{background:var(--pink);color:#fff}
+.fac .item[aria-expanded=true]{background:var(--blue);color:#fff}
+.bar-top{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:6px}
+.bar-top i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--blue));transition:width .3s}
+.qn{color:var(--pink);font-weight:700}
+.q{font-size:1.15rem;font-weight:700;margin:6px 0 12px}
+.opt{display:flex;gap:10px;align-items:center;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt .l{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;background:var(--blue)}
+.opt:nth-child(even) .l{background:var(--pink)}
+.opt.right{background:#d6f5e4;border-color:#1a9b57;color:#0b3d22}
+.opt.wrong{background:#ffd9d9;border-color:#d33;color:#5a0b0b}
+.fb{margin-top:10px;padding:12px 14px;border-radius:12px;background:var(--bluebg);border-left:6px solid var(--blue);display:none}
+.fb.on{display:block}
+.next{margin-top:12px;border:0;font:inherit;font-weight:700;color:#fff;background:var(--pink);padding:11px 22px;border-radius:999px;cursor:pointer;display:none}
+.next.on{display:inline-block}
+.score{text-align:center;padding:10px}
+.score .big{font-size:3rem;font-weight:800;background:linear-gradient(90deg,var(--pink),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Barriers to Communication</h1>
+<p>Learn the seven types, see how they show up in real life, and how to overcome them. Then check the classroom view and take the quiz.</p>
+</header>
+<nav role="tablist">
+<button role="tab" aria-selected="true" data-t="t1">Barrier types</button>
+<button role="tab" aria-selected="false" data-t="t2">In the classroom</button>
+<button role="tab" aria-selected="false" data-t="t3">Quiz (10)</button>
+</nav>
+
+<section id="t1" class="on">
+<div class="chips" id="chips"></div>
+<div class="panel" id="bpanel"></div>
+</section>
+
+<section id="t2">
+<div class="cols">
+<div class="col bar"><h2>Barriers</h2><p>Tap an item to see how to fix it.</p><div id="cb"></div></div>
+<div class="col fac"><h2>Facilitators</h2><p>Tap an item to see it in action.</p><div id="cf"></div></div>
+</div>
+</section>
+
+<section id="t3"><div class="panel" id="quiz"></div></section>
+</div>
+
+<script>
+const B=[
+["Physical","Noise, distance, poor lighting or a broken device get in the way of the message.","A teacher speaks from the back of a noisy hall and the front rows can't hear her.","Choose a quiet, well-lit space, reduce distance, use a microphone and check that equipment works."],
+["Language","Jargon, complex words or a different first language make the message unclear.","A manager says \"let's leverage synergies\" and new staff nod without understanding.","Use plain words, define technical terms, speak slowly and invite questions."],
+["Psychological","Stress, fear, anger or low confidence distort how a message is sent or received.","A nervous student hears a gentle correction as a personal attack.","Stay calm, pick the right moment, show empathy and give reassurance before feedback."],
+["Cultural","Different customs, values and body language lead to misreading.","In some cultures direct eye contact shows respect; in others it can feel rude.","Learn about other cultures, avoid assumptions and ask when unsure."],
+["Emotional","Strong feelings such as sadness, jealousy or excitement block listening.","A person upset about a result cannot focus on the instructions that follow.","Acknowledge the feeling, pause the conversation and return when both sides are calm."],
+["Perceptual","Each person's beliefs, stereotypes and experience shape what they think they heard.","Assuming a quiet pupil is uninterested when she is simply shy.","Check assumptions, ask open questions and see the issue from the other side."],
+["Technological","Poor connection, wrong channel or unfamiliar tools break the flow.","A video call freezes mid-sentence and the key instruction is lost.","Test tools beforehand, have a backup channel and confirm key points in writing."]
+];
+const CB=[
+["Noise and crowding","Move seating, use a quiet signal for attention and close doors or windows."],
+["Unclear instructions","Break tasks into steps, show an example and ask a pupil to repeat it back."],
+["Fear of speaking up","Use pair talk first, praise effort and make mistakes safe."],
+["Language gaps","Use visuals, simple sentences and glossaries for new terms."],
+["Teacher talks too much","Add questions, think-pair-share and short student tasks."],
+["Stereotypes and bias","Give every pupil equal turns and review your own expectations."]
+];
+const CF=[
+["Active listening","Face the speaker, nod, paraphrase what you heard and don't interrupt."],
+["Clear, simple language","Short sentences, familiar words and key terms written on the board."],
+["Two-way feedback","Exit tickets, quick polls and open questions show what pupils understood."],
+["Positive tone and body language","Eye contact, smiling, open posture and a warm voice invite participation."],
+["Visual aids","Charts, diagrams and demos support spoken words and different learners."],
+["Respectful environment","Shared rules about listening and kindness make everyone willing to speak."]
+];
+const Q=[
+["Which barrier does a noisy classroom represent?",["Physical","Cultural","Emotional","Language"],0,"Noise, distance and poor lighting are physical barriers."],
+["A manager uses heavy technical jargon with new staff. This is a:",["Perceptual barrier","Language barrier","Physical barrier","Technological barrier"],1,"Jargon makes the words themselves hard to understand."],
+["A stressed student mishears a gentle correction as criticism. Which barrier?",["Psychological","Technological","Physical","Language"],0,"Stress and fear change how messages are received."],
+["Eye contact means respect in one culture and rudeness in another. This shows a:",["Language barrier","Physical barrier","Cultural barrier","Technological barrier"],2,"Different customs and body language cause cultural misreading."],
+["Best fix for a physical barrier such as a noisy hall?",["Speak faster","Move to a quiet space or use a microphone","Ignore it","Write longer messages"],1,"Change the environment or equipment to remove the interference."],
+["Which is a facilitator of classroom communication?",["Teacher talks non-stop","Active listening","Vague instructions","Ridicule for mistakes"],1,"Listening, clear language and feedback help messages land."],
+["Why is two-way feedback valuable in class?",["It saves time","It shows what pupils really understood","It replaces teaching","It keeps pupils quiet"],1,"Feedback closes the loop between sender and receiver."],
+["Assuming a quiet pupil is uninterested is an example of:",["Perceptual barrier","Physical barrier","Technological barrier","Language barrier"],0,"Beliefs and stereotypes shape what we think we see."],
+["A video call freezes during a key instruction. Best habit?",["Hope for the best","Have a backup channel and confirm in writing","Talk louder","End the meeting"],1,"A backup and written confirmation protect the message."],
+["Best way to overcome an emotional barrier?",["Push on with the talk","Acknowledge feelings, pause and return when calm","Raise your voice","Send a long email"],1,"Strong emotions block listening, so calm comes first."]
+];
+const $=s=>document.querySelector(s);
+// Tabs
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-selected",x===b));
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===b.dataset.t));
+});
+// Barrier types
+function showB(i){
+ [...$("#chips").children].forEach((c,j)=>c.setAttribute("aria-pressed",i===j));
+ const b=B[i];
+ $("#bpanel").innerHTML=`<h2>${b[0]} barrier</h2><p>${b[1]}</p><div class="box ex"><b>Example</b>${b[2]}</div><div class="box fix"><b>How to overcome</b>${b[3]}</div>`;
+}
+B.forEach((b,i)=>{const c=document.createElement("button");c.className="chip";c.textContent=b[0];c.onclick=()=>showB(i);$("#chips").appendChild(c)});
+showB(0);
+// Classroom
+function list(id,arr){arr.forEach(a=>{const e=document.createElement("button");e.className="item";e.setAttribute("aria-expanded","false");e.innerHTML=`<strong>${a[0]}</strong><span class="more">${a[1]}</span>`;e.onclick=()=>e.setAttribute("aria-expanded",e.getAttribute("aria-expanded")!=="true");$(id).appendChild(e)})}
+list("#cb",CB);list("#cf",CF);
+// Quiz
+let qi=0,sc=0,done=false;
+function render(){
+ const el=$("#quiz");
+ if(qi>=Q.length){
+  const msg=sc>=9?"Outstanding!":sc>=7?"Great work!":sc>=5?"Good start. Review the tabs and try again.":"Keep going. Revisit the barrier types and retry.";
+  el.innerHTML=`<div class="score"><div class="big">${sc} / ${Q.length}</div><p>${msg}</p><button class="next on" id="re">Restart quiz</button></div>`;
+  $("#re").onclick=()=>{qi=0;sc=0;render()};return;
+ }
+ const q=Q[qi];done=false;
+ el.innerHTML=`<div class="bar-top"><i style="width:${qi/Q.length*100}%"></i></div><div class="qn">Question ${qi+1} of ${Q.length}</div><div class="q">${q[0]}</div><div id="opts"></div><div class="fb" id="fb"></div><button class="next" id="nx">${qi===Q.length-1?"See score":"Next question"}</button>`;
+ q[1].forEach((t,i)=>{const o=document.createElement("button");o.className="opt";o.innerHTML=`<span class="l">${"ABCD"[i]}</span><span>${t}</span>`;o.onclick=()=>pick(i);$("#opts").appendChild(o)});
+ $("#nx").onclick=()=>{qi++;render()};
+}
+function pick(i){
+ if(done)return;done=true;const q=Q[qi];const os=$("#opts").children;
+ if(i===q[2])sc++;
+ [...os].forEach((o,j)=>{o.disabled=true;if(j===q[2])o.classList.add("right");else if(j===i)o.classList.add("wrong")});
+ $("#fb").innerHTML=`<b>${i===q[2]?"Correct!":"Not quite."}</b> ${q[3]}`;
+ $("#fb").classList.add("on");$("#nx").classList.add("on");
+}
+render();
+</script>
+</body>
+</html>
